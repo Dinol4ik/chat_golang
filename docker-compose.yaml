@@ -1,0 +1,17 @@
+version: "3.7"
+services:
+  redis-db:
+    container_name: redis
+    image: redis/redis-stack:latest
+    ports:
+      - "6379:6379"
+
+  server:
+    depends_on:
+      - redis-db
+    restart: on-failure
+    build: .
+    container_name: platform-chat
+
+    ports:
+      - "8080:8080"
